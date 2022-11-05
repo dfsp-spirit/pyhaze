@@ -9,7 +9,7 @@ This package package performs smoothing of per-vertex data on triangular meshes.
 
 **Fig.1**: *Noisy per-vertex data on a brain mesh (left), and the same data after smoothing (right). White represents NA values.*
 
-This is a Python implementation of the [haze package for R](https://github.com/dfsp-spirit/haze). The haze website offers a more detailed explanation of the use case.
+This is a Python implementation of the [haze package for R](https://github.com/dfsp-spirit/haze). The haze website offers a more detailed explanation of the motivation and use cases.
 
 ## Development state
 
