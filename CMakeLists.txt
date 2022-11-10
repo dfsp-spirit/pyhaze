@@ -30,7 +30,7 @@ add_subdirectory(src)
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(ext/Catch2)
-  include(./ext/Catch2/contrib/Catch.cmake)
+  include(./ext/Catch2/extras/Catch.cmake)
   add_subdirectory(tests)
 endif()
 
