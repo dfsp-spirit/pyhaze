@@ -62,7 +62,7 @@ class CMakeBuild(build_ext):
             ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env
         )
         subprocess.check_call(
-            ["cmake", "--build", ".", "--target", "pybind11numpyexample_python"]
+            ["cmake", "--build", ".", "--target", "pyhaze_python"]
             + build_args,
             cwd=self.build_temp,
         )
