@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 # Set a name and a version number for your project:
 project(
   pyhaze
-  VERSION 0.2.0
+  VERSION 0.1.0
   LANGUAGES CXX)
 
 # Initialize some default paths
