@@ -10,7 +10,7 @@ project(
 include(GNUInstallDirs)
 
 # Define the minimum C++ standard that is required
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -27,12 +27,12 @@ set(BUILD_DOCS
 add_subdirectory(src)
 
 # compile the tests
-include(CTest)
-if(BUILD_TESTING)
-  add_subdirectory(ext/Catch2)
-  include(./ext/Catch2/extras/Catch.cmake)
-  add_subdirectory(tests)
-endif()
+#include(CTest)
+#if(BUILD_TESTING)
+#  add_subdirectory(ext/Catch2)
+#  include(./ext/Catch2/extras/Catch.cmake)
+#  add_subdirectory(tests)
+#endif()
 
 if(BUILD_DOCS)
   # Add the documentation

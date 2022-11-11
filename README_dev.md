@@ -19,6 +19,7 @@ ninja
 ## Packaging for PyPi
 
 ```shell
+pip install pybind11
 python3 -m pip install --upgrade build
 cd <repo>
 python3 -m build
