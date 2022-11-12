@@ -26,14 +26,6 @@ set(BUILD_DOCS
 # compile the library
 add_subdirectory(src)
 
-# compile the tests
-#include(CTest)
-#if(BUILD_TESTING)
-#  add_subdirectory(ext/Catch2)
-#  include(./ext/Catch2/extras/Catch.cmake)
-#  add_subdirectory(tests)
-#endif()
-
 if(BUILD_DOCS)
   # Add the documentation
   add_subdirectory(doc)
