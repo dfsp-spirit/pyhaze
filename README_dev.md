@@ -3,18 +3,16 @@
 
 ## On the stuff in `ext/`
 
-The `Catch2` and `pybind11` directories/links are git submodules. They were added via:
+The `Catch2` and `pybind11` directories/links are git submodules. They were added via the following commands.
+
+Note that you do NOT need to run these commands again. The repo cloning instructions below show how to get the submodules.
 
 ```shell
 git submodule add https://github.com/catchorg/Catch2
 git submodule add https://github.com/pybind/pybind11
 ```
 
-TODO: We should consider re-adding at a specific commit or tag for better reproducibility:
-
-* `pybind11` commit used: `1f04cc7`
-* `Catch2` commit used: `41990e0`
-
+Note that Catch2 is following the `v2.x` branch, see the `.gitmodules` file.
 
 ## Required packages for building
 
