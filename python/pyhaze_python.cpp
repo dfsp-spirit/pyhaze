@@ -24,43 +24,15 @@ inline py::array_t<typename Sequence::value_type> as_pyarray(Sequence &&seq) {
 
 namespace pyhaze {
 
-/** @brief Return a vector as a Python List
- *
- * @param size The size of the vector to return
- * @returns the vector as a Python List
- */
- /*
-static std::vector<short> vector_as_list(std::size_t size) {
-  return make_vector<short>(size);
-}
-*/
 
-/** @brief Return a vector as a NumPy array
- *
- * Makes a copy of an existing vector of data
- *
- * @param size The size of the vector to return
- * @returns the vector as a NumPy array
- */
-/*static py::array_t<short> vector_as_array(std::size_t size) {
-  auto temp_vector = make_vector<short>(size);
-  return py::array(size, temp_vector.data());
-}
-*/
 
-/** @brief Return a vector as a NumPy array
+/** @brief Smooth per-vertex data on a mesh using nearest edge neighbor smoothing and uniform weights.
  *
- * Moves the contents of an existing vector of data
- *
- * @param size The size of the vector to return
- * @returns the vector as a NumPy array
+ * @param mesh_adj : 2d array of integers, adjacency list representation of the faces of a mesh. The outer array has size num_vertices, the length of the inner arrays are the number of neighbors of the respective vertex.
+ * @param pvd      : 1d array of floats, the per-vertex data for the mesh, with length num_vertices.
+ * @param num_iter : scalar int, the number of iterations of nearest neighbor smoothing to apply.
+ * @returns        : 1d numpy array of floats, the smoothed per-vertex data for the mesh, with length num_vertices.
  */
-/*static py::array_t<short> vector_as_array_nocopy(std::size_t size) {
-  auto temp_vector = make_vector<short>(size);
-  return as_pyarray(std::move(temp_vector));
-}
-*/
-
 static py::array_t<float> smooth_pvd_nn(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter) {
   auto temp_vector = smooth_pvd_nn(mesh_adj, pvd, num_iter);
   return as_pyarray(std::move(temp_vector));
