@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "pybind11~=2.6.1"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "pyhaze"
+version = "0.1.0"
+authors = [
+    {name = "Tim Schaefer", email="ts+code@rcmd.org"}
+]
+description="Fast smoothing of per-vertex data on triangular meshes."
+readme = "README.md"
+keywords = ["mesh", "triangular-mesh", "smoothing", "overlay", "per-vertex data", "mesh descriptor", "haze", "neuroimaging", "MRI", "brain"]
+license = {file = "LICENSE"}
+classifiers=[
+        "Programming Language :: C++",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "License :: OSI Approved :: MIT License",
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Science/Research",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: POSIX :: Linux",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: MacOS",
+        "Natural Language :: English",
+]
+
+[project.urls]
+homepage = "https://github.com/dfsp-spirit/pyhaze"
+documentation = "https://github.com/dfsp-spirit/pyhaze"
+repository = "https://github.com/dfsp-spirit/pyhaze"
