@@ -29,9 +29,11 @@ namespace pyhaze {
  * @param size The size of the vector to return
  * @returns the vector as a Python List
  */
+ /*
 static std::vector<short> vector_as_list(std::size_t size) {
   return make_vector<short>(size);
 }
+*/
 
 /** @brief Return a vector as a NumPy array
  *
@@ -40,10 +42,11 @@ static std::vector<short> vector_as_list(std::size_t size) {
  * @param size The size of the vector to return
  * @returns the vector as a NumPy array
  */
-static py::array_t<short> vector_as_array(std::size_t size) {
+/*static py::array_t<short> vector_as_array(std::size_t size) {
   auto temp_vector = make_vector<short>(size);
   return py::array(size, temp_vector.data());
 }
+*/
 
 /** @brief Return a vector as a NumPy array
  *
@@ -52,13 +55,22 @@ static py::array_t<short> vector_as_array(std::size_t size) {
  * @param size The size of the vector to return
  * @returns the vector as a NumPy array
  */
-static py::array_t<short> vector_as_array_nocopy(std::size_t size) {
+/*static py::array_t<short> vector_as_array_nocopy(std::size_t size) {
   auto temp_vector = make_vector<short>(size);
   return as_pyarray(std::move(temp_vector));
 }
+*/
+
+static py::array_t<float> smooth_pvd_nn(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter=1) {
+  auto temp_vector = smooth_pvd_nn(mesh_adj, pvd, num_iter);
+  return as_pyarray(std::move(temp_vector));
+}
+
+
 
 PYBIND11_MODULE(pyhaze, m) {
   m.doc() = "Python Bindings for pyhaze";
+  /*
   m.def("vector_as_list", &vector_as_list,
         "Returns a vector of 16-bit ints as a Python List");
   m.def("vector_as_array", &vector_as_array,
@@ -66,6 +78,9 @@ PYBIND11_MODULE(pyhaze, m) {
   m.def("vector_as_array_nocopy", &vector_as_array_nocopy,
         "Returns a vector of 16-bit ints as a NumPy array without making a "
         "copy of the data");
-}
+  */
+  m.def("smooth_pvd_nn", &smooth_pvd_nn,
+    "Smooth per-vertex data on a mesh using nearest edge neighbor smoothing and uniform weights.");
+  };
 
 } // namespace pyhaze
