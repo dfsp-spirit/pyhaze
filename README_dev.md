@@ -45,6 +45,22 @@ cd build
 ninja
 ```
 
+
+## Running the dev version
+
+First build it, then:
+
+```shell
+python
+```
+
+and:
+
+```python
+import pyhaze
+...
+```
+
 ## Packaging for PyPi
 
 
