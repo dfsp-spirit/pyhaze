@@ -61,7 +61,7 @@ static std::vector<short> vector_as_list(std::size_t size) {
 }
 */
 
-static py::array_t<float> smooth_pvd_nn(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter=1) {
+static py::array_t<float> smooth_pvd_nn(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter) {
   auto temp_vector = smooth_pvd_nn(mesh_adj, pvd, num_iter);
   return as_pyarray(std::move(temp_vector));
 }
@@ -79,8 +79,19 @@ PYBIND11_MODULE(pyhaze, m) {
         "Returns a vector of 16-bit ints as a NumPy array without making a "
         "copy of the data");
   */
-  m.def("smooth_pvd_nn", &smooth_pvd_nn,
-    "Smooth per-vertex data on a mesh using nearest edge neighbor smoothing and uniform weights.");
+  m.def("smooth_pvd_nn", &smooth_pvd_nn, R"mydelim(
+    Smooth per-vertex data on a mesh using nearest edge neighbor smoothing and uniform weights.
+
+    Parameters
+    ----------
+    mesh_adj : 2d array of integers, adjacency list representation of the faces of a mesh. The outer array has size num_vertices, the length of the inner arrays are the number of neighbors of the respective vertex.
+    pvd      : 1d array of floats, the per-vertex data for the mesh, with length num_vertices.
+    num_iter : scalar int, the number of iterations of nearest neighbor smoothing to apply.
+
+    Returns
+    -------
+    pvd_smooth: 1d array of floats, the smoothed per-vertex data for the mesh, with length num_vertices.
+)mydelim");
   };
 
 } // namespace pyhaze
