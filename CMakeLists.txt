@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.13)
 
 # Set a name and a version number for your project:
 project(
@@ -33,7 +33,6 @@ endif()
 if(BUILD_PYTHON)
   # Add Python bindings
   add_subdirectory(ext/pybind11)
-
   add_subdirectory(python)
 endif()
 
