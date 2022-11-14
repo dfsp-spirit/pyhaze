@@ -1,19 +1,6 @@
 # Development Information for pyhaze
 
 
-## On the stuff in `ext/`
-
-The `Catch2` and `pybind11` directories/links are git submodules. They were added via the following commands.
-
-Note that you do NOT need to run these commands again. The repo cloning instructions below show how to get the submodules.
-
-```shell
-git submodule add https://github.com/catchorg/Catch2
-git submodule add https://github.com/pybind/pybind11
-```
-
-Note that Catch2 is following the `v2.x` branch, see the `.gitmodules` file.
-
 ## Required packages for building
 
 *Note:* You may want to do the `pip` part in a `venv`.
@@ -30,7 +17,7 @@ pip install --upgrade build
 cd
 git clone https://github.com/dfsp-spirit/pyhaze
 cd pyhaze  # Called <repo_dir> from now on.
-git submodule init  # Required to init stuff in ext/
+git submodule update --init  # Required to init stuff in ext/
 ```
 
 
@@ -70,3 +57,16 @@ python3 setup.py sdist
 python3 setup.py bdist_wheel
 ```
 
+
+## On the origins of the stuff in `ext/`
+
+The `Catch2` and `pybind11` directories/links are git submodules. They were added via the following commands.
+
+Note that you do NOT need to run these commands again. The repo cloning instructions below show how to get the submodules.
+
+```shell
+git submodule add https://github.com/catchorg/Catch2
+git submodule add https://github.com/pybind/pybind11
+```
+
+Note that Catch2 is following the `v2.x` branch, see the `.gitmodules` file.
