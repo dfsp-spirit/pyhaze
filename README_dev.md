@@ -45,6 +45,7 @@ cd build
 ninja
 ```
 
+*Note: If your cmake version is older than the required one, it is easy to update (or install a later version into another directory) from the [cmake website](https://cmake.org/download).*
 
 ## Running the dev version
 
