@@ -1,4 +1,9 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.13)
+# Note: It is easy to update cmake, under Linux I would 
+# recommend to leave the outdated system version alone
+# and download the binary from the cmake website into
+# an alternate directory (e.g., /opt/cmake/ on single user
+# systems, or ~/software/cmake/ on multi-user systems).
 
 # Set a name and a version number for your project:
 project(
@@ -33,7 +38,6 @@ endif()
 if(BUILD_PYTHON)
   # Add Python bindings
   add_subdirectory(ext/pybind11)
-
   add_subdirectory(python)
 endif()
 
