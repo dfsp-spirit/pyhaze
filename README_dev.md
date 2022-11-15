@@ -71,3 +71,12 @@ git submodule add https://github.com/pybind/pybind11
 ```
 
 Note that Catch2 is following the `v2.x` branch, see the `.gitmodules` file.
+
+
+## Running the unit tests (pytest)
+
+```shell
+pip install pytest numpy
+cd <repo_dir>
+pytest
+```
