@@ -39,6 +39,15 @@ static py::array_t<float> smooth_pvd_nn(const std::vector<std::vector<size_t>> m
 }
 
 
+/** @brief Return a simple cube mesh in vertex index list representation.
+ * @returns : Tuple of 2D np.ndarrays, the first ndarray contains the nx3 vertex coordinates, the second ndarray contains the mx3 triangles (faces).
+ */
+static py::tuple construct_cube() {
+  fs::Mesh m = fs::Mesh::construct_cube();
+  return py::make_tuple(as_pyarray(fs::util::v2d(m.vertices, 3)), as_pyarray(fs::util::v2d(m.faces, 3)));
+}
+
+
 
 PYBIND11_MODULE(pyhaze, m) {
   m.doc() = "Python Bindings for pyhaze";
