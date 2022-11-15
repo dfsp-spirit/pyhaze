@@ -25,19 +25,6 @@ inline py::array_t<typename Sequence::value_type> as_pyarray(Sequence &&seq) {
 namespace pyhaze {
 
 
-
-/** @brief Smooth per-vertex data on a mesh using nearest edge neighbor smoothing and uniform weights.
- *
- * @param mesh_adj : 2d array of integers, adjacency list representation of the faces of a mesh. The outer array has size num_vertices, the length of the inner arrays are the number of neighbors of the respective vertex.
- * @param pvd      : 1d array of floats, the per-vertex data for the mesh, with length num_vertices.
- * @param num_iter : scalar int, the number of iterations of nearest neighbor smoothing to apply.
- * @returns        : 1d numpy array of floats, the smoothed per-vertex data for the mesh, with length num_vertices.
- */
-static py::array_t<float> smooth_pvd_nn(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter) {
-  return as_pyarray(std::move(smooth_pvd_nn(mesh_adj, pvd, num_iter)));
-}
-
-
 /** @brief Return a simple cube mesh in vertex index list representation.
  * @returns : Tuple of 2D np.ndarrays, the first ndarray contains the nx3 vertex coordinates, the second ndarray contains the mx3 triangles (faces).
  */
@@ -50,23 +37,16 @@ static py::tuple construct_cube() {
 PYBIND11_MODULE(pyhaze, m) {
   m.doc() = "Python Bindings for pyhaze";
 
-  m.def("smooth_pvd_nn", &smooth_pvd_nn, R"mydelim(
-    Smooth per-vertex data on a mesh using nearest edge neighbor smoothing and uniform weights.
-
-    Parameters
-    ----------
-    mesh_adj : 2d list of integers, adjacency list representation of the faces of a mesh. The outer array has size num_vertices, the length of the inner arrays are the number of neighbors of the respective vertex.
-    pvd      : 1d list of floats, the per-vertex data for the mesh, with length `num_vertices`.
-    num_iter : scalar int, the number of iterations of nearest neighbor smoothing to apply.
-
-    Returns
-    -------
-    pvd_smooth: 1d np.ndarray of floats, the smoothed per-vertex data for the mesh, with length `num_vertices`.
-)mydelim");
-
   py::class_<fs::Mesh>(m, "Mesh")
         .def(py::init<std::vector<float>, std::vector<int>>())
         .def("to_obj", &fs::Mesh::to_obj)
+        .def("as_adjlist", &fs::Mesh::as_adjlist)
+        .def("num_vertices", &fs::Mesh::num_vertices)
+        .def("num_faces", &fs::Mesh::num_faces)
+        //.def("smooth_pvd_nn", py::overload_cast<const std::vector<float>, const size_t, const bool>(&fs::Mesh::smooth_pvd_nn))
+        .def("smooth_pvd_nn", static_cast<std::vector<float> (fs::Mesh::*)(std::vector<float>, const size_t, const bool)>(&fs::Mesh::smooth_pvd_nn))
+        .def_readwrite("vertices", &fs::Mesh::vertices)
+        .def_readwrite("faces", &fs::Mesh::faces)
         .def("as_edgelist", &fs::Mesh::as_edgelist);
 
   m.def("construct_cube", &construct_cube, "Construct simple cube mesh.");
