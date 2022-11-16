@@ -380,12 +380,12 @@ namespace fs {
   struct Mesh {
 
     /// Construct a Mesh from the given vertices and faces.
-    Mesh(std::vector<float> cvertices, std::vector<int32_t> cfaces) {
+    Mesh(const std::vector<float> cvertices, const std::vector<int32_t> cfaces) {
       vertices = cvertices; faces = cfaces;
     }
 
     // Construct from 2D vectors (Nx3).
-    Mesh(std::vector<std::vector<float>> cvertices, std::vector<std::vector<int32_t>> cfaces) {
+    Mesh(const std::vector<std::vector<float>> cvertices, const std::vector<std::vector<int32_t>> cfaces) {
       vertices = util::vflatten(cvertices); faces = util::vflatten(cfaces);
     }
 

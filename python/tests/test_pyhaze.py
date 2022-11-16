@@ -27,7 +27,7 @@ def test_construct_cube():
     assert isinstance(faces[0][0], int)
 
 
-def test_init_mesh():
+def test_init_mesh_1d():
     vertices, faces = pyhaze.construct_cube()
     m = pyhaze.Mesh(np.ravel(vertices), np.ravel(faces))
 
@@ -39,24 +39,51 @@ def test_init_mesh():
     assert num_faces == 12
     assert m.num_faces() == num_faces
 
+
+def test_init_mesh_2d():
+    vertices, faces = pyhaze.construct_cube()
+    m = pyhaze.Mesh(vertices, faces)
+
+    num_vertices = len(np.ravel(vertices)) / 3
+    assert num_vertices == 8
+    assert m.num_vertices() == num_vertices
+
+    num_faces = len(np.ravel(faces)) / 3
+    assert num_faces == 12
+    assert m.num_faces() == num_faces
+
+
+def test_mesh_member_functions():
+    vertices, faces = pyhaze.construct_cube()
+    m = pyhaze.Mesh(np.ravel(vertices), np.ravel(faces))
+
     obj_str = m.to_obj()
     assert isinstance(obj_str, str)
     edges = m.as_edgelist()
     assert isinstance(edges, set), f"Expected set, got {type(edges)}."
     adj = m.as_adjlist(True)
     assert isinstance(adj, list)
-    assert len(adj) == num_vertices
+    assert len(adj) == m.num_vertices()
 
 
-
-def test_smoothnn():
+def test_smooth_pvd():
     vertices, faces = pyhaze.construct_cube()
-    m = pyhaze.Mesh(np.ravel(vertices), np.ravel(faces))
+    m = pyhaze.Mesh(vertices, faces)
     num_vertices = m.num_vertices()
 
-    #mesh_adj = m.as_adjlist(True)
     pvd_data = np.arange(num_vertices, dtype=float)
-    #res = pyhaze.smooth_pvd_nn(mesh_adj, pvd_data.tolist(), 5)
-    res = m.smooth_pvd_nn(pvd_data.tolist(), 5, True)
+    res = pyhaze.smooth_pvd(vertices, faces, pvd_data.tolist(), 5)
+    assert res.size == num_vertices
+    assert isinstance(res, np.ndarray)
+
+
+def test_smooth_pvd_adj():
+    vertices, faces = pyhaze.construct_cube()
+    m = pyhaze.Mesh(vertices, faces)
+    num_vertices = m.num_vertices()
+
+    pvd_data = np.arange(num_vertices, dtype=float)
+    mesh_adj = m.as_adjlist(True)
+    res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), 5)
     assert res.size == num_vertices
     assert isinstance(res, np.ndarray)
