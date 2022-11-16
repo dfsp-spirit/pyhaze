@@ -8,6 +8,7 @@
 
 import pyhaze
 import numpy as np
+import pytest
 
 
 def test_construct_cube():
@@ -84,6 +85,20 @@ def test_smooth_pvd_adj():
 
     pvd_data = np.arange(num_vertices, dtype=float)
     mesh_adj = m.as_adjlist(True)
+    res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), 5)
+    assert res.size == num_vertices
+    assert isinstance(res, np.ndarray)
+
+
+def test_smooth_pvd_adj_with_igl():
+    igl = pytest.importorskip('igl')  # Test will be skipped if Python package 'igl' is not installed.
+    vertices, faces = pyhaze.construct_cube()
+    m = pyhaze.Mesh(vertices, faces)
+    num_vertices = m.num_vertices()
+
+    pvd_data = np.arange(num_vertices, dtype=float)
+    faces_igl = np.array(faces).reshape(-1, 3)
+    mesh_adj = igl.adjacency_list(faces_igl)
     res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), 5)
     assert res.size == num_vertices
     assert isinstance(res, np.ndarray)
