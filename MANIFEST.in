@@ -1,0 +1,9 @@
+# Include the README files
+include README.md
+include README_dev.md
+
+# Include the license file
+include LICENSE
+
+# Include CMake build instructions.
+include CMakeLists.txt
