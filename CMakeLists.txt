@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-# Note: It is easy to update cmake, under Linux I would 
+# Note: It is easy to update cmake, under Linux I would
 # recommend to leave the outdated system version alone
 # and download the binary from the cmake website into
 # an alternate directory (e.g., /opt/cmake/ on single user
@@ -37,7 +37,20 @@ if(BUILD_DOCS)
 endif()
 if(BUILD_PYTHON)
   # Add Python bindings
-  add_subdirectory(ext/pybind11)
+  include(FetchContent)
+  FetchContent_Declare(
+      pybind11
+      GIT_REPOSITORY https://github.com/pybind/pybind11
+      GIT_TAG        v2.2.3
+  )
+
+  FetchContent_GetProperties(pybind11)
+  if(NOT pybind11_POPULATED)
+    FetchContent_Populate(pybind11)
+    add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
+  endif()
+
+  #add_subdirectory(ext/pybind11)
   add_subdirectory(python)
 endif()
 

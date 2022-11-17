@@ -60,10 +60,6 @@ class CMakeBuild(build_ext):
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
 
-        #cmake_file = os.path.join(path.abspath(path.dirname(__file__)), "CMakeLists.txt")
-        #print(f"##### Copying file '{cmake_file}' to '{self.build_temp}'.")
-        #shutil.copy(cmake_file, self.build_temp)
-
         subprocess.check_call(
             ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env
         )
