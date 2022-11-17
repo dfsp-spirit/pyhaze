@@ -1,0 +1,60 @@
+package:
+  name: pyhaze
+  version: 0.1.0
+
+source:
+  path: ../../..
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  #script: python -m pip install . -vvv
+
+requirements:
+  build:
+    - python
+    - wheel
+    - pybind11 >=2.6.0
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - numpy
+    - git
+    - cmake
+
+  host:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - python
+    - setuptools >=42.0
+
+  run:
+    - python
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+
+
+test:
+  imports:
+    - pyhaze
+  source_files:
+    - python/tests
+  requires:
+    - pytest
+    - numpy
+    - igl # Optional, some tests will be skipped if not installed.
+  commands:
+    - pytest
+
+about:
+  summary: Fast smoothing of per-vertex data on triangular meshes for Python.
+  description: |
+    This module can smoothe per-vertex data for a mesh, e.g., mesh descriptors like
+    the curvature measured at each mesh vertex. The smoothed value at vertex N is
+    the average of the values of all vertices in edge distance 1 from vertex N (N's direct
+    neighbors). Several iterations can be applied to approximate Gaussian smoothing.
+  license_file: LICENSE
+  dev_url: https://github.com/dfsp-spirit/pyhaze
+
+extra:
+  recipe-maintainers:
+    - dfsp-spirit
