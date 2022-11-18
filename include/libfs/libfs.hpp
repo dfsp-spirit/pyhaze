@@ -9,7 +9,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <map>
-#include <bits/stdc++.h>
+#include <unordered_set>
 
 /// @file
 ///
@@ -380,12 +380,12 @@ namespace fs {
   struct Mesh {
 
     /// Construct a Mesh from the given vertices and faces.
-    Mesh(const std::vector<float> cvertices, const std::vector<int32_t> cfaces) {
+    Mesh(std::vector<float> cvertices, std::vector<int32_t> cfaces) {
       vertices = cvertices; faces = cfaces;
     }
 
     // Construct from 2D vectors (Nx3).
-    Mesh(const std::vector<std::vector<float>> cvertices, const std::vector<std::vector<int32_t>> cfaces) {
+    Mesh(std::vector<std::vector<float>> cvertices, std::vector<std::vector<int32_t>> cfaces) {
       vertices = util::vflatten(cvertices); faces = util::vflatten(cfaces);
     }
 
