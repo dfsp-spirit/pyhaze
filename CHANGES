@@ -1,0 +1,15 @@
+pyhaze Changes
+===============
+
+Unreleased WIP
+--------------
+
+
+Version 0.1.1
+-------------
+- FIX: Support Windows build by updating libfs to 78641fc. The old libfs version did not compile with the Microsoft Visual Studio C++ 17 2022 compiler.
+
+
+Version 0.1.0
+-------------
+- Initial `pyhaze` release, exposing functions `construct_cube`, `smooth_pvd` and `smooth_pvd_adj`. The `Mesh` class is also exposed.
