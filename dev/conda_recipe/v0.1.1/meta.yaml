@@ -6,19 +6,22 @@ package:
   version: "{{ version }}"
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: b1879a024429b81ccfc898b073e6633b96548ca1da0eeafda75b1655abb118c0
+  #url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  #sha256: b1879a024429b81ccfc898b073e6633b96548ca1da0eeafda75b1655abb118c0
+  path: ../../../
 
 build:
   number: 0
-  #script: "{{ PYTHON }} -m pip install . -vv"
-  script: "{{ PYTHON }} setup.py build sdist bdist_wheel"
+  script: "{{ PYTHON }} -m pip install . -vv"
+  #script: "{{ PYTHON }} setup.py build sdist bdist_wheel"
 
 requirements:
   build:
     - python
+    - pip
     - wheel
     - pybind11 >=2.6.0
+    - setuptools >=42.0
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
     - numpy
@@ -30,12 +33,11 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
     - python
+    - pip
     - setuptools >=42.0
 
   run:
     - python
-    - {{ compiler('cxx') }}
-    - {{ compiler('c') }}
 
 
 about:
