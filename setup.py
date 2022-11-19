@@ -77,7 +77,7 @@ with open(path.join(path.abspath(path.dirname(__file__)), "README.md")) as f:
 
 setup(
     name="pyhaze",
-    version="0.1.1",
+    version="0.1.2",
     author="Tim Schaefer",
     author_email="ts+code@rcmd.org",
     description="Fast smoothing of per-vertex data on triangular meshes.",

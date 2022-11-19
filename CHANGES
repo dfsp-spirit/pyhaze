@@ -4,6 +4,9 @@ pyhaze Changes
 Unreleased WIP
 --------------
 
+Version 0.1.2
+-------------
+- FIX: Include all required source files in MANIFEST.in, so we can later build the conda recipe and the bdist from the sdist.
 
 Version 0.1.1
 -------------
