@@ -36,8 +36,8 @@ requirements:
     - pip
     - setuptools >=42.0
 
-  run:
-    - python
+ # run:
+ #   - python
 
 
 about:
