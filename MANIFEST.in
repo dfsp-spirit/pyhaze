@@ -7,3 +7,12 @@ include LICENSE
 
 # Include CMake build instructions.
 include CMakeLists.txt
+include src/CMakeLists.txt
+global-include CMakeLists.txt *.cmake
+
+# Include stuff in ext
+graft ext/pybind11
+graft ext/Catch2
+graft src
+graft include
+graft python

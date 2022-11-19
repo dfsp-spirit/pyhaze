@@ -1,14 +1,18 @@
+{% set name = "pyhaze" %}
+{% set version = "0.1.1" %}
+
 package:
-  name: pyhaze
-  version: 0.1.0
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
 
 source:
-  path: ../../..
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: b1879a024429b81ccfc898b073e6633b96548ca1da0eeafda75b1655abb118c0
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
-  #script: python -m pip install . -vvv
+  #script: "{{ PYTHON }} -m pip install . -vv"
+  script: "{{ PYTHON }} setup.py build sdist bdist_wheel"
 
 requirements:
   build:
@@ -19,7 +23,8 @@ requirements:
     - {{ compiler('c') }}
     - numpy
     - git
-    - cmake
+    - cmake >=3.18
+    - ninja
 
   host:
     - {{ compiler('cxx') }}
@@ -33,18 +38,6 @@ requirements:
     - {{ compiler('c') }}
 
 
-test:
-  imports:
-    - pyhaze
-  source_files:
-    - python/tests
-  requires:
-    - pytest
-    - numpy
-    - igl # Optional, some tests will be skipped if not installed.
-  commands:
-    - pytest
-
 about:
   summary: Fast smoothing of per-vertex data on triangular meshes for Python.
   description: |
@@ -52,9 +45,15 @@ about:
     the curvature measured at each mesh vertex. The smoothed value at vertex N is
     the average of the values of all vertices in edge distance 1 from vertex N (N's direct
     neighbors). Several iterations can be applied to approximate Gaussian smoothing.
+  license: MIT License or MIT
+  license_family: MIT
   license_file: LICENSE
+  home: https://github.com/dfsp-spirit/pyhaze
   dev_url: https://github.com/dfsp-spirit/pyhaze
+  doc_url: https://github.com/dfsp-spirit/pyhaze
 
 extra:
   recipe-maintainers:
     - dfsp-spirit
+
+
