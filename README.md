@@ -1,6 +1,10 @@
 # pyhaze
 Fast smoothing of per-vertex data on triangular meshes for Python.
 
+[![PyPI version](https://badge.fury.io/py/pyhaze.svg)](https://badge.fury.io/py/pyhaze)
+[![Anaconda-Server Badge](https://anaconda.org/dfspspirit/pyhaze/badges/version.svg)](https://anaconda.org/dfspspirit/pyhaze)
+
+
 ## About
 
 This package package performs smoothing of per-vertex data on [triangular meshes](https://en.wikipedia.org/wiki/Triangle_mesh). Such smoothing is typically used to reduce high-frequency noise and improve signal-to-noise ration (SNR). The algorithm for iterative nearest-neighbor smoothing is trivial, but involves nested tight loops, which are very slow in Python, so this package calls into C++ via [pybind11](https://github.com/pybind/pybind11) to achieve high performance.
