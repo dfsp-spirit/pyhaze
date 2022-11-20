@@ -15,6 +15,21 @@ This package package performs smoothing of per-vertex data on [triangular meshes
 
 This is a Python implementation of the [haze package for R](https://github.com/dfsp-spirit/haze). The haze website offers a more detailed explanation of the motivation and use cases.
 
+
+## Installation
+
+Via pip:
+
+```shell
+pip install pyhaze
+```
+
+Alternatively, if you want to use `conda`:
+
+```shell
+conda install -c dfspspirit pyhaze
+```
+
 ## Usage
 
 ### Example 1: Smooth data on a mesh given as a vertex index list
