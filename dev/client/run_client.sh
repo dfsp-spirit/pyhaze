@@ -30,7 +30,7 @@ run_with_nonan="true"
 
 surf_dir="./tests/test_data/tim_only/tim/surf"
 surface="white"
-num_iter="50"
+num_iter="150"
 
 for descriptor in thickness curv; do
     for hemi in lh rh; do
@@ -52,6 +52,7 @@ done
 # $ R
 # > install.packages("fsbrain")
 # > fsbrain::vis.subject.morph.native("tests/test_data/tim_only", "tim", "thickness")
-# > fsbrain::vis.subject.morph.native("tests/test_data/tim_only", "tim", "smooth50_thickness")
+# > fsbrain::vis.subject.morph.native("tests/test_data/tim_only", "tim", "smooth150_thickness")
+# > fsbrain::vis.subject.morph.native("tests/test_data/tim_only", "tim", "nonan_smooth150_thickness")
 
 
