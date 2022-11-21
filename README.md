@@ -43,7 +43,7 @@ import numpy as np
 vertices, faces = pyhaze.construct_cube()
 
 pvd_data = np.arange(len(vertices), dtype=float)
-smoothed_data = pyhaze.smooth_pvd(vertices, faces, pvd_data.tolist(), 5)
+smoothed_data = pyhaze.smooth_pvd(vertices, faces, pvd_data.tolist(), num_iter=5)
 ```
 
 A note on the mesh representation used, so you can replace the `vertices` and `faces` with your own triangular mesh:
@@ -66,7 +66,7 @@ vertices, faces = pyhaze.construct_cube()
 pvd_data = np.arange(len(vertices), dtype=float)
 faces_igl = np.array(faces).reshape(-1, 3).astype(np.int64)
 mesh_adj = igl.adjacency_list(faces_igl)  # Compute adjacency list with igl.
-res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), 5)
+res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), num_iter=5)
 ```
 
 See the [unit tests](./python/tests/test_pyhaze.py) for more examples.
