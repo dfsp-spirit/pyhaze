@@ -64,7 +64,7 @@ import igl
 vertices, faces = pyhaze.construct_cube()
 
 pvd_data = np.arange(len(vertices), dtype=float)
-faces_igl = np.array(faces).reshape(-1, 3)
+faces_igl = np.array(faces).reshape(-1, 3).astype(np.int64)
 mesh_adj = igl.adjacency_list(faces_igl)  # Compute adjacency list with igl.
 res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), 5)
 ```

@@ -97,7 +97,7 @@ def test_smooth_pvd_adj_with_igl():
     num_vertices = m.num_vertices()
 
     pvd_data = np.arange(num_vertices, dtype=float)
-    faces_igl = np.array(faces).reshape(-1, 3)
+    faces_igl = np.array(faces).reshape(-1, 3).astype(np.int64)
     mesh_adj = igl.adjacency_list(faces_igl)
     res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), 5)
     assert res.size == num_vertices
