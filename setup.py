@@ -35,7 +35,6 @@ class CMakeBuild(build_ext):
 
         cmake_args = [
             "-DBUILD_DOCS=OFF",
-            "-DBUILD_TESTING=OFF",
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + extdir,
             "-DPYTHON_EXECUTABLE=" + sys.executable,
         ]

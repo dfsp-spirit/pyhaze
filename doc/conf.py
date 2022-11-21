@@ -68,7 +68,7 @@ if read_the_docs_build:
     os.makedirs("build-cmake", exist_ok=True)
     builddir = os.path.join(cwd, "build-cmake")
     subprocess.check_call(
-        "cmake -DBUILD_DOCS=ON -DBUILD_TESTING=OFF -DBUILD_PYTHON=OFF ../..".split(),
+        "cmake -DBUILD_DOCS=ON -DBUILD_PYTHON=OFF ../..".split(),
         cwd=builddir,
     )
     subprocess.check_call("cmake --build . --target doxygen".split(), cwd=builddir)
