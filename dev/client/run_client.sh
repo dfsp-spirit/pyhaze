@@ -40,8 +40,9 @@ for descriptor in thickness curv; do
         ./dev/client/pyhaze_client.py "${pvd_file}" "${mesh_file}" -o "${output_file}" -i ${num_iter}
 
         if [ "${run_with_nonan}" = "true" ]; then
+            cortex_label_file="${surf_dir}/../label/${hemi}.cortex.label"
             output_file_nonan="${surf_dir}/${hemi}.nonan_smooth${num_iter}_${descriptor}"
-            ./dev/client/pyhaze_client.py "${pvd_file}" "${mesh_file}" -o "${output_file_nonan}" -i ${num_iter} --no-nan
+            ./dev/client/pyhaze_client.py "${pvd_file}" "${mesh_file}" -o "${output_file_nonan}" -i "${num_iter}" --no-nan -l "${cortex_label_file}"
         fi
 
     done

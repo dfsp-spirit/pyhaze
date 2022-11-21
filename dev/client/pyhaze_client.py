@@ -27,6 +27,7 @@ def pyhazecl():
     parser.add_argument("-e", "--via-edgelist", help="Compute mesh adjacency matrix via edge list instead of adjacency matrix. Only relevant if igl is not installed.", action="store_true")
     parser.add_argument("-n", "--no-nan", help="Disable support for NAN values in input data for small speed boost.", action="store_true")
     parser.add_argument("-w", "--no-warn-igl", help="Disable warning message in case of missing 'igl' package.", action="store_true")
+    parser.add_argument("-l", "--labelfile", help="str, label file to mask input data with NAN values.", default=None)
     parser.add_argument("-s", "--silent", help="Disable printing of messages.", action="store_true")
     args = parser.parse_args()
 
@@ -38,6 +39,7 @@ def pyhazecl():
     via_matrix = not args.via_edgelist
     warn_igl = not args.no_warn_igl
     silent = args.silent
+    labelfile = args.labelfile
 
     if not silent:
         print(f"Smoothing pvd data from file '{pvdfile}' on mesh '{meshfile}' with {num_iter} iterations, with_nan={with_nan}.")
@@ -47,6 +49,10 @@ def pyhazecl():
 
     if not os.path.isfile(meshfile):
         raise ValueError(f"Cannot read input mesh file '{meshfile}'.")
+
+    if labelfile is not None:
+        if not os.path.isfile(labelfile):
+            raise ValueError(f"Cannot read input label file '{labelfile}'.")
 
     if meshfile == pvdfile:
         raise ValueError(f"The files passed as mesh file '{meshfile}' and per-vertex data file '{pvdfile}' cannot be identical.")
@@ -59,6 +65,15 @@ def pyhazecl():
 
     if not silent:
         print(f" - Read mesh with {vertices.shape[0]} vertices and suitable per-vertex data.")
+
+    if labelfile is not None:
+        cortex_vertices = fsio.read_label(labelfile)
+        masked_pvd_data = np.zeros(pvd_data.shape, dtype=float)
+        masked_pvd_data[:] = np.nan
+        masked_pvd_data[cortex_vertices] = pvd_data[cortex_vertices]
+        pvd_data = masked_pvd_data
+        if not silent:
+            print(f" - Cortex contains {cortex_vertices.size} vertices. Masked {vertices.shape[0] - cortex_vertices.size} non-cortical vertices with NAN value.")
 
     has_igl = False
     try:
