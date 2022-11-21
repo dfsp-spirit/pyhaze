@@ -26,6 +26,7 @@ if [ ! -d "tests" ]; then
     fi
 fi
 
+run_with_nonan="true"
 
 surf_dir="./tests/test_data/tim_only/tim/surf"
 surface="white"
@@ -37,6 +38,12 @@ for descriptor in thickness curv; do
         pvd_file="${surf_dir}/${hemi}.${descriptor}"
         output_file="${surf_dir}/${hemi}.smooth${num_iter}_${descriptor}"
         ./dev/client/pyhaze_client.py "${pvd_file}" "${mesh_file}" -o "${output_file}" -i ${num_iter}
+
+        if [ "${run_with_nonan}" = "true" ]; then
+            output_file_nonan="${surf_dir}/${hemi}.nonan_smooth${num_iter}_${descriptor}"
+            ./dev/client/pyhaze_client.py "${pvd_file}" "${mesh_file}" -o "${output_file_nonan}" -i ${num_iter} --no-nan
+        fi
+
     done
 done
 

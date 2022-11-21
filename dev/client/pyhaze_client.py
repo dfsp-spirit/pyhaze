@@ -40,7 +40,7 @@ def pyhazecl():
     silent = args.silent
 
     if not silent:
-        print(f"Smoothing pvd data from file '{pvdfile}' on mesh '{meshfile}' with {num_iter} iterations.")
+        print(f"Smoothing pvd data from file '{pvdfile}' on mesh '{meshfile}' with {num_iter} iterations, with_nan={with_nan}.")
 
     if not os.path.isfile(pvdfile):
         raise ValueError(f"Cannot read input per-vertex data file '{pvdfile}'.")
