@@ -76,8 +76,6 @@ namespace pyhaze {
           .def(py::init<std::vector<float>, std::vector<int>>())
           .def(py::init<std::vector<std::vector<float>>, std::vector<std::vector<int>>>())
           .def("to_obj", &fs::Mesh::to_obj)
-          .def("to_ply", &fs::Mesh::to_ply)
-          .def("to_off", &fs::Mesh::to_off)
           .def("as_adjlist", &fs::Mesh::as_adjlist)
           .def("num_vertices", &fs::Mesh::num_vertices)
           .def("num_faces", &fs::Mesh::num_faces)
