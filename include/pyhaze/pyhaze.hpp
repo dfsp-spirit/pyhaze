@@ -10,7 +10,7 @@
 
 namespace pyhaze {
 
-  static std::vector<float> smooth_pvd_nn_cpp_adj(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter=1) {
+  static std::vector<float> smooth_pvd_nn_cpp_adj(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter=1, const bool with_nan=true) {
     return fs::Mesh::smooth_pvd_nn(mesh_adj, pvd, num_iter);
   }
 
