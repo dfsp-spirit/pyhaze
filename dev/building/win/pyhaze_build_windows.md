@@ -1,8 +1,8 @@
 ## Building pyhaze on Windows
 
-This explains how to manually build pyhaze under Windows to distribute binary, platform-specific Windows wheels to PyPI. This is intended for pyhaze developers only and we do
-not support this in any way, so please do not create issues in our repository if this does not work for you. Read the documentation of setuptools, pybind11,
-cmake, conda, Visual Studio, ... instead.
+This explains how to manually build pyhaze under Windows to distribute binary, platform-specific Windows wheels to PyPI.
+
+This document is intended for pyhaze developers only and we do not support this in any way, so please do not create issues in our repository if this does not work for you. Read the documentation of setuptools, pybind11, cmake, conda, Visual Studio, ... instead.
 
 This was tested on Windows 10 Professional.
 
@@ -12,6 +12,8 @@ This was tested on Windows 10 Professional.
 Before starting this, you need to install the following software:
 
 * `Microsoft Visual Studio for C++`, free when using the Community Edition. Tested with the Community Edition of 'Visual Studio for C++ 17 2022'.
+  - Note: `Microsoft Visual Studio for C++` is **not** identical to the popular, multi-platform and open-source IDE `Visual Studio Code`, and installing the latter does not help in any way for this guide. You need to get `Microsoft Visual Studio for C++` from [visualstudio.microsoft.com]()https://visualstudio.microsoft.com/).
+  - You will additionally need to start `Microsoft Visual Studio for C++`, navigate to the `Workloads` page, and install the `Desktop development with C++` workload. Make sure a toolset (e.g., `VC++ 2017 v141 toolset` or similar) is selected and click the `Modify` button to install the additional components. I also selected `Visual Studio C++ tools for CMake`, but I am not sure whether they are needed -- it won't hurt though.
 * `conda`, free, we used the full 'Anaconda Distribution' (https://www.anaconda.com/products/distribution), but the Miniconda version will most likely also work.
 * `git`, unless you want to install it via `conda`.
 
