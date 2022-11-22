@@ -5,6 +5,11 @@
 #
 #     pip install pytest
 #     conda install -y numpy
+#
+# and, optional but recommended:
+#
+#     conda install -y -c conda-forge igl
+#
 
 import pyhaze
 import numpy as np
@@ -113,9 +118,9 @@ def test_extend_adj():
     mesh_adj_extended = pyhaze.extend_adj(mesh_adj, extend_by=1)
     assert len(mesh_adj) == num_vertices
     for neigh_sz in neighsizes:
-        assert neigh_sz == 4
+        assert neigh_sz >= 4
     assert len(mesh_adj) == len(mesh_adj_extended)
     neighsizes_ext = [len(neigh) for neigh in mesh_adj_extended]
     for neigh_sz in neighsizes_ext:
-        assert neigh_sz > 4
+        assert neigh_sz > 6
 
