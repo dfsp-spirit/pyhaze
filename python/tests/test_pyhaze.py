@@ -102,3 +102,20 @@ def test_smooth_pvd_adj_with_igl():
     res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), 5)
     assert res.size == num_vertices
     assert isinstance(res, np.ndarray)
+
+def test_extend_adj():
+    vertices, faces = pyhaze.construct_cube()
+    m = pyhaze.Mesh(vertices, faces)
+    num_vertices = m.num_vertices()
+
+    mesh_adj = m.as_adjlist(True)
+    neighsizes = [len(neigh) for neigh in mesh_adj]
+    mesh_adj_extended = pyhaze.extend_adj(mesh_adj, extend_by=1)
+    assert len(mesh_adj) == num_vertices
+    for neigh_sz in neighsizes:
+        assert neigh_sz == 4
+    assert len(mesh_adj) == len(mesh_adj_extended)
+    neighsizes_ext = [len(neigh) for neigh in mesh_adj_extended]
+    for neigh_sz in neighsizes_ext:
+        assert neigh_sz > 4
+
