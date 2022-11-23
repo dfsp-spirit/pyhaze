@@ -50,28 +50,9 @@ namespace pyhaze {
     return as_pyarray(std::move(temp_vector));
   }
 
-  std::vector<std::vector<size_t>> extend_adj(const std::vector<std::vector<size_t>> mesh_adj, const size_t extend_by=1) {
-    size_t num_vertices = mesh_adj.size();
-    std::vector<std::vector<size_t>> mesh_adj_ext = mesh_adj;
-    std::vector<size_t> neighborhood;
-    std::vector<size_t> ext_neighborhood;
-    for(size_t ext_idx = 0; ext_idx < extend_by; ext_idx++) {
-      for(size_t source_vert_idx = 0; source_vert_idx < num_vertices; source_vert_idx++) {
-        neighborhood = mesh_adj_ext[source_vert_idx];
-        // Extension: add all neighbors in distance one for all vertices in the neighborhood.
-        for(size_t neigh_vert_rel_idx = 0; neigh_vert_rel_idx < neighborhood.size(); neigh_vert_rel_idx++) {
-          for(size_t canidate_rel_idx = 0; canidate_rel_idx < mesh_adj[neighborhood[neigh_vert_rel_idx]].size(); canidate_rel_idx++) {
-            if(mesh_adj[neighborhood[neigh_vert_rel_idx]][canidate_rel_idx] != source_vert_idx) {
-              mesh_adj_ext[source_vert_idx].push_back(mesh_adj[neighborhood[neigh_vert_rel_idx]][canidate_rel_idx]);
-            }
-          }
-        }
-        // We need to remove duplicates.
-        std::sort(mesh_adj_ext[source_vert_idx].begin(), mesh_adj_ext[source_vert_idx].end());
-        mesh_adj_ext[source_vert_idx].erase(std::unique(mesh_adj_ext[source_vert_idx].begin(), mesh_adj_ext[source_vert_idx].end()), mesh_adj_ext[source_vert_idx].end());
-      }
-    }
-    return mesh_adj_ext;
+  static std::vector<std::vector<size_t>> extend_adj(const std::vector<std::vector<size_t>> mesh_adj, const size_t extend_by=1) {
+    std::vector<std::vector<size_t>> mesh_adj_ext = std::vector<std::vector<size_t>>();
+    return fs::Mesh::extend_adj(mesh_adj, extend_by, mesh_adj_ext);
   }
 
   /** @brief Smooth per-vertex data on a mesh given as a vertex index list using nearest edge neighbor smoothing and uniform weights.
