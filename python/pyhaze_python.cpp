@@ -9,9 +9,10 @@
 
 namespace py = pybind11;
 
-// helper function to avoid making a copy when returning a py::array_t
-// author: https://github.com/YannickJadoul
-// source: https://github.com/pybind/pybind11/issues/1042#issuecomment-642215028
+/// @brief Internal helper function to avoid making a copy when returning a py::array_t.
+/// @note Not exposed to Python. Source: https://github.com/pybind/pybind11/issues/1042#issuecomment-642215028
+/// @internal
+/// @author author: https://github.com/YannickJadoul
 template <typename Sequence>
 inline py::array_t<typename Sequence::value_type> as_pyarray(Sequence &&seq) {
   auto size = seq.size();
@@ -27,8 +28,7 @@ inline py::array_t<typename Sequence::value_type> as_pyarray(Sequence &&seq) {
 
 namespace pyhaze {
 
-
-  /** @brief Return a simple cube mesh in vertex index list representation.
+    /** @brief Return a simple cube mesh in vertex index list representation.
    * @returns : Tuple of 2D np.ndarrays, the first ndarray contains the nx3 vertex coordinates, the second ndarray contains the mx3 triangles (faces).
    */
   static py::tuple construct_cube() {
@@ -50,12 +50,7 @@ namespace pyhaze {
     return as_pyarray(std::move(temp_vector));
   }
 
-  static std::vector<std::vector<size_t>> extend_adj(const std::vector<std::vector<size_t>> mesh_adj, const size_t extend_by=1) {
-    std::vector<std::vector<size_t>> mesh_adj_ext = std::vector<std::vector<size_t>>();
-    return fs::Mesh::extend_adj(mesh_adj, extend_by, mesh_adj_ext);
-  }
-
-  /** @brief Smooth per-vertex data on a mesh given as a vertex index list using nearest edge neighbor smoothing and uniform weights.
+    /** @brief Smooth per-vertex data on a mesh given as a vertex index list using nearest edge neighbor smoothing and uniform weights.
    *
    * @param mesh_vertices : 2d array of floats, the vertex coordinates for N vertices as an Nx3 matrix. Can be empty, as vertex coordinates are not required for nearest neighbor smoothing. In here to prevent calling this with an adjacency list by accident.
    * @param mesh_faces    : 2d array of size_t, the faces for N vertices as an Nx3 matrix of vertex indices.
