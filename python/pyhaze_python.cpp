@@ -75,16 +75,16 @@ namespace pyhaze {
   PYBIND11_MODULE(pyhaze, m) {
     m.doc() = "Python Bindings for pyhaze";
 
-    py::class_<fs::Mesh>(m, "Mesh")
+    py::class_<fs::Mesh>(m, "Mesh", "A vertex index list representation of a triangle mesh.")
           .def(py::init<std::vector<float>, std::vector<int>>())
           .def(py::init<std::vector<std::vector<float>>, std::vector<std::vector<int>>>())
-          .def("to_obj", &fs::Mesh::to_obj)
-          .def("as_adjlist", &fs::Mesh::as_adjlist)
-          .def("num_vertices", &fs::Mesh::num_vertices)
-          .def("num_faces", &fs::Mesh::num_faces)
-          .def_readwrite("vertices", &fs::Mesh::vertices)
-          .def_readwrite("faces", &fs::Mesh::faces)
-          .def("as_edgelist", &fs::Mesh::as_edgelist);
+          .def("to_obj", &fs::Mesh::to_obj, "Get string representation of the mesh instance in Wavefront Object (OBJ) format, plain text version.")
+          .def("as_adjlist", &fs::Mesh::as_adjlist, "Compute adjacency list representation of the mesh instance.")
+          .def("num_vertices", &fs::Mesh::num_vertices, "Return the number of vertices of the mesh instance.")
+          .def("num_faces", &fs::Mesh::num_faces, "Return the number of faces (triangles) of the mesh instance.")
+          .def_readwrite("vertices", &fs::Mesh::vertices, "Access the vertices of the mesh instance.")
+          .def_readwrite("faces", &fs::Mesh::faces, "Access the faces of the mesh instance.")
+          .def("as_edgelist", &fs::Mesh::as_edgelist, "Compute edge list representation of the mesh instance.");
 
     m.def("construct_cube", &construct_cube, "Construct simple cube mesh.");
     m.def("smooth_pvd_adj", &smooth_pvd_adj, "Smooth data on mesh given as adjacency list. Allows you to use fast methods to compute mesh adjacency, like `igl.adjacency_list()` from the 'igl' Python package.", py::arg("mesh_adj"), py::arg("pvd"), py::arg("num_iter") = 1, py::arg("with_nan") = true);
