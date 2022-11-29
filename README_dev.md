@@ -86,12 +86,29 @@ cd <repo_dir>
 pytest
 ```
 
+If you experience issues like `no module 'pyhaze'` errors, try `python -m pytest` instead of just `pytest`, or
+set `PYTHONPATH=.` before running `pytest`.
+
 ## Development cycle
+
+Note: *We currently support both `setup.py` (legacy mode for old `pip` versions) and `pyproject.toml`.*
 
 Change into `<repo_dir>`. Then:
 
 * Make changes to the code
-* Run `python3 setup.py bdist_wheel`
+* Run `python3 setup.py bdist_wheel`, or alternatively `python3 -m build`. (The latter uses `pyproject.toml`.)
 * Run `pip install -e .`
 * Run the unit tests and/or an interactive Python interpreter session (`python3` or `ipython` if you have it) to test your changes.
 
+## Documentation
+
+Auto-generating the Python documentation is still an open issue. I cannot find any documentation or working
+example of how to achieve that for a pybind11 package.
+
+You can generate the C++ API docs with doxygen, see [instructions in the `doc/doxygen/` directory](./doc/doxygen/README_doxygen.md). However, for Python, that is not what we want. We want to document the Python API, not the C++ API.
+
+There is a tool called `breathe`, which seems to act as a
+bridge between doxygen (C++ docs) and sphinx (Python docs). It seems, with it one could write docs for functions in the C++ code (in doxygen style) and still write them addressing Python users (i.e., mention Python instead of C++
+type names, etc). Then it could generate the sphinx docs based on the C++ doc strings. But I was not able to get this to work, and I spent way too much time on that already.
+
+Given that the `pyhaze` package only exposes three functions, this is of minor concern to me right now, we simply document the API in the `README.md` file for now. I would not use pybind11 for a larger project until I find some way to get this to work though.
