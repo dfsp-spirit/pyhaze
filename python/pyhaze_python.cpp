@@ -42,11 +42,12 @@ namespace pyhaze {
    * @param mesh_adj : 2d array of integers, adjacency list representation of the faces of a mesh. The outer array has size num_vertices, the length of the inner arrays are the number of neighbors of the respective vertex.
    * @param pvd      : 1d array of floats, the per-vertex data for the mesh, with length num_vertices.
    * @param num_iter : scalar int, the number of iterations of nearest neighbor smoothing to apply.
-   * @param with_nan : bool, whether to enable NAN support. On by default. Set to off for small speed boost if you are sure you have no NAN values.
+   * @param with_nan      : bool, whether to enable NAN support. On by default. Set to off for small speed boost if you are sure you have no NAN values. Ignored if `detect_nan` is `True`.
+   * @param detect_nan    : bool, whether to auto-detect the need to enable NAN support. On by default. If on, `with_nan` is ignored.
    * @returns        : 1d numpy array of floats, the smoothed per-vertex data for the mesh, with length num_vertices.
    */
-  static py::array_t<float> smooth_pvd_adj(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter, const bool with_nan=true) {
-    auto temp_vector = smooth_pvd_nn_cpp_adj(mesh_adj, pvd, num_iter, with_nan);
+  static py::array_t<float> smooth_pvd_adj(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter, const bool with_nan=true, const bool detect_nan=true) {
+    auto temp_vector = smooth_pvd_nn_cpp_adj(mesh_adj, pvd, num_iter, with_nan, detect_nan);
     return as_pyarray(std::move(temp_vector));
   }
 
@@ -57,13 +58,14 @@ namespace pyhaze {
    * @param pvd           : 1d array of floats, the per-vertex data for the mesh, with length num_vertices.
    * @param num_iter      : scalar int, the number of iterations of nearest neighbor smoothing to apply.
    * @param via_matrix    : whether the mesh adjacency list should be computed via a matrix (faster, requires more memory) as opposed to an edge list (slower, requires less memory).
-   * @param with_nan      : bool, whether to enable NAN support. On by default. Set to off for small speed boost if you are sure you have no NAN values.
-   * @returns             : 1d numpy array of floats, the smoothed per-vertex data for the mesh, with length num_vertices.
+   * @param with_nan      : bool, whether to enable NAN support. On by default. Set to off for small speed boost if you are sure you have no NAN values. Ignored if `detect_nan` is `True`.
+   * @param detect_nan    : bool, whether to auto-detect the need to enable NAN support. On by default. If on, `with_nan` is ignored.
+   * @returns             : 1d numpy array of floats, the smoothed per-vertex data for the mesh, with length `num_vertices`.
    */
-  static py::array_t<float> smooth_pvd(const std::vector<std::vector<float>> mesh_vertices, const std::vector<std::vector<int32_t>> mesh_faces, const std::vector<float> pvd, const size_t num_iter = 1, const bool via_matrix = true, const bool with_nan=true) {
+  static py::array_t<float> smooth_pvd(const std::vector<std::vector<float>> mesh_vertices, const std::vector<std::vector<int32_t>> mesh_faces, const std::vector<float> pvd, const size_t num_iter = 1, const bool via_matrix = true, const bool with_nan=true, const bool detect_nan=true) {
     fs::Mesh m = fs::Mesh(mesh_vertices, mesh_faces);
     auto mesh_adj = m.as_adjlist(via_matrix);
-    auto temp_vector = smooth_pvd_nn_cpp_adj(mesh_adj, pvd, num_iter, with_nan);
+    auto temp_vector = smooth_pvd_nn_cpp_adj(mesh_adj, pvd, num_iter, with_nan, detect_nan);
     return as_pyarray(std::move(temp_vector));
   }
 
@@ -87,8 +89,8 @@ namespace pyhaze {
           .def("as_edgelist", &fs::Mesh::as_edgelist, "Compute edge list representation of the mesh instance.");
 
     m.def("construct_cube", &construct_cube, "Construct simple cube mesh.");
-    m.def("smooth_pvd_adj", &smooth_pvd_adj, "Smooth data on mesh given as adjacency list. Allows you to use fast methods to compute mesh adjacency, like `igl.adjacency_list()` from the 'igl' Python package.", py::arg("mesh_adj"), py::arg("pvd"), py::arg("num_iter") = 1, py::arg("with_nan") = true);
-    m.def("smooth_pvd", &smooth_pvd, "Smooth data on mesh given as vertex index list.", py::arg("mesh_vertices"), py::arg("mesh_faces"), py::arg("pvd"), py::arg("num_iter") = 1, py::arg("via_matrix") = true, py::arg("with_nan") = true);
+    m.def("smooth_pvd_adj", &smooth_pvd_adj, "Smooth data on mesh given as adjacency list. Allows you to use fast methods to compute mesh adjacency, like `igl.adjacency_list()` from the 'igl' Python package.", py::arg("mesh_adj"), py::arg("pvd"), py::arg("num_iter") = 1, py::arg("with_nan") = true, py::arg("detect_nan") = true);
+    m.def("smooth_pvd", &smooth_pvd, "Smooth data on mesh given as vertex index list.", py::arg("mesh_vertices"), py::arg("mesh_faces"), py::arg("pvd"), py::arg("num_iter") = 1, py::arg("via_matrix") = true, py::arg("with_nan") = true, py::arg("detect_nan") = true);
     m.def("extend_adj", &extend_adj, "Extend neighborhoods by k iterations of edge hopping.", py::arg("mesh_adj"), py::arg("extend_by") = 1);
   } // PYBIND11_MODULE
 

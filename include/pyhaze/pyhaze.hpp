@@ -38,10 +38,11 @@ namespace pyhaze {
   /// @param mesh_adj : 2d array of integers, adjacency list representation of the faces of a mesh. The outer array has size `num_vertices`, the length of the inner arrays are the number of neighbors of the respective vertex.
   /// @param pvd      : 1d array of floats, the per-vertex data for the mesh, with length `num_vertices`.
   /// @param num_iter : scalar int, the number of iterations of nearest neighbor smoothing to apply.
-  /// @param with_nan : bool, whether to enable NAN support. On by default. Set to off for small speed boost if you are sure you have no NAN values.
+  /// @param with_nan      : bool, whether to enable NAN support. On by default. Set to off for small speed boost if you are sure you have no NAN values. Ignored if `detect_nan` is `True`.
+  /// @param detect_nan    : bool, whether to auto-detect the need to enable NAN support. On by default. If on, `with_nan` is ignored.
   /// @returns          the smoothed per-vertex data for the mesh, with length `num_vertices`.
-  static std::vector<float> smooth_pvd_nn_cpp_adj(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter=1, const bool with_nan=true) {
-    return fs::Mesh::smooth_pvd_nn(mesh_adj, pvd, num_iter, with_nan);
+  static std::vector<float> smooth_pvd_nn_cpp_adj(const std::vector<std::vector<size_t>> mesh_adj, const std::vector<float> pvd, const size_t num_iter=1, const bool with_nan=true, const bool detect_nan=true) {
+    return fs::Mesh::smooth_pvd_nn(mesh_adj, pvd, num_iter, with_nan, detect_nan);
   }
 
 
