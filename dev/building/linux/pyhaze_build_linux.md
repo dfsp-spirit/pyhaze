@@ -57,3 +57,19 @@ This can be done by official `pyhaze` maintainers only, it requires the PyPI cre
 ```shell
 twine upload dist/*  # Will ask for credentials. Only upload the sdist. Uploading the binary wheel will fail anyways, unless building on a manylinux Docker image, see notes at the very top of this document.
 ```
+
+### Uploading to conda
+
+First upload the release to PyPI (see above).
+
+Copy the old recipe and replace the hash of the pypi archive with the one from the new PyPI release.
+
+```shell
+export PYHAZE_OLD_REL="v0.1.2"  # Replace with previous release.
+export PYHAZE_NEW_REL="v0.1.3"  # Replace with the release you are preparing.
+cd <pyhaze_repo>  # Replace with your path.
+mkdir dev/conda_recipe/${PYHAZE_NEW_REL}
+cp dev/conda_recipe/${PYHAZE_OLD_REL}/meta.yml dev/conda_recipe/${PYHAZE_NEW_REL}/
+```
+
+Now edit the commit hash.
