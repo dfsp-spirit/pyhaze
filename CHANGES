@@ -1,8 +1,10 @@
 pyhaze Changes
 ===============
 
-Unreleased WIP
+Version 0.1.3
 --------------
+- Add function `extend_adj` to extend existing mesh neighborhood definition by k hopds along mesh edges.
+- Add support for NAN values in `smooth_pvd` and `smooth_pvd_adj` functions.
 
 Version 0.1.2
 -------------
