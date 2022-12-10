@@ -111,6 +111,11 @@ Change into `<repo_dir>`. Then:
 * Run `pip install -e .`
 * Run the unit tests and/or an interactive Python interpreter session (`python3` or `ipython` if you have it) to test your changes.
 
+
+## Building and publishing to PyPI and conda
+
+See the information in [dev/building/] for more information.
+
 ## Documentation
 
 Auto-generating the Python documentation is still an open issue. I cannot find any documentation or working
@@ -129,7 +134,6 @@ Given that the `pyhaze` package only exposes three functions, this is of minor c
 
 (Apart from the documentation.)
 
-It is not clear how to add a function written in Python to the package. This could be some simply helper function, or a function working on a more complex datastructure that you have in Python, but that does trivial stuff and therefore it is not worth it to annotate and import the large datastructure into C++, do something trivial, and pass it back.
 
-Currently the package can only include C++ functions wrapped with pybind11. Various solutions found in older StackOverflow posts also did not work, or it was unclear how to distribute them to users. Overall, it seems to
-me that pybind11 could use better documentation with regards to packaging the results. How to use it to wrap C++ functions is explained very well, but finding out how to ship your code to users is quite tedious.
+* It is not clear how to add a function written in Python to the package. This could be some simply helper function, or a function working on a more complex datastructure that you have in Python, but that does trivial stuff and therefore it is not worth it to annotate and import the large datastructure into C++, do something trivial, and pass it back. Currently the package can only include C++ functions wrapped with pybind11. Various solutions found in older StackOverflow posts also did not work, or it was unclear how to distribute them to users. Overall, it seems to me that pybind11 could use better documentation with regards to packaging the results. How to use it to wrap C++ functions is explained very well, but finding out how to ship your code to users is quite tedious.
+* Adding a console script entrypoint for the package needs to be investigated. As this would be written in Python, the problem is related to the previous one.
