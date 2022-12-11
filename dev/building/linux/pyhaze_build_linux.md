@@ -93,3 +93,12 @@ It's time to build the conda package from the recipe:
 conda-build ${NEW_RELEASE}
 ```
 
+Check the output for error messages and the output file. It will typically be at something like `$HOME/anaconda3/conda-bld/linux-64/pyhaze-0.1.3-<somehash>.tar.bz2`.
+
+Upload the resulting file to anaconda cloud:
+
+```shell
+anaconda upload <ouput_file>
+```
+
+
