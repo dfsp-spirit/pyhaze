@@ -1,0 +1,59 @@
+{% set name = "pyhaze" %}
+{% set version = "0.1.3" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: a4dc565f890ea6f1d03661210ad4197d87c95603a6fec4077d8c86891ca4265f
+  #path: ../../../
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+  #script: "{{ PYTHON }} setup.py build sdist bdist_wheel"
+
+requirements:
+  build:
+    - python
+    - pip
+    - wheel
+    - pybind11 >=2.6.0
+    - setuptools >=42.0
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - numpy
+    - git
+    - cmake >=3.18
+    - ninja
+
+  host:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - python
+    - pip
+    - setuptools >=42.0
+
+ # run:
+ #   - python
+
+
+about:
+  summary: Fast smoothing of per-vertex data on triangular meshes for Python.
+  description: |
+    This module can smoothe per-vertex data for a mesh, e.g., mesh descriptors like
+    the curvature measured at each mesh vertex. The smoothed value at vertex N is
+    the average of the values of all vertices in edge distance 1 from vertex N (N's direct
+    neighbors). Several iterations can be applied to approximate Gaussian smoothing.
+  license: MIT License or MIT
+  license_family: MIT
+  license_file: LICENSE
+  home: https://github.com/dfsp-spirit/pyhaze
+  dev_url: https://github.com/dfsp-spirit/pyhaze
+  doc_url: https://github.com/dfsp-spirit/pyhaze
+
+extra:
+  recipe-maintainers:
+    - dfsp-spirit
