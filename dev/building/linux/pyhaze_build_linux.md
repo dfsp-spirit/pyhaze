@@ -58,18 +58,38 @@ This can be done by official `pyhaze` maintainers only, it requires the PyPI cre
 twine upload dist/*  # Will ask for credentials. Only upload the sdist. Uploading the binary wheel will fail anyways, unless building on a manylinux Docker image, see notes at the very top of this document.
 ```
 
-### Uploading to conda
+### Conda: creating recipe, building, and uploading to conda
 
-First upload the release to PyPI (see above).
+First upload the release to PyPI (see above). Then generate the conda recipe from the PyPI release:
 
-Copy the old recipe and replace the hash of the pypi archive with the one from the new PyPI release.
+If nothing has changed with regards to dependencies, you can simply copy the old recipe and replace the hash of the pypi archive with the one from the new PyPI release.
+
+First, copy the old file:
 
 ```shell
-export PYHAZE_OLD_REL="v0.1.2"  # Replace with previous release.
-export PYHAZE_NEW_REL="v0.1.3"  # Replace with the release you are preparing.
-cd <pyhaze_repo>  # Replace with your path.
-mkdir dev/conda_recipe/${PYHAZE_NEW_REL}
-cp dev/conda_recipe/${PYHAZE_OLD_REL}/meta.yml dev/conda_recipe/${PYHAZE_NEW_REL}/
+export PYHAZE_OLD_VER="0.1.2"  # Replace with previous version (with existing release).
+export PYHAZE_NEW_VER="0.1.3"  # Replace with the version you are preparing to release.
+export PYHAZE_OLD_REL="v${PYHAZE_OLD_VER}"
+export PYHAZE_NEW_REL="v${PYHAZE_NEW_VER}"
+cd <pyhaze_repo>/dev/conda_recipe/  # Replace <pyhaze_repo> with your path.
+mkdir ${PYHAZE_NEW_REL}
+cp ${PYHAZE_OLD_REL}/meta.yml ${PYHAZE_NEW_REL}/
 ```
 
-Now edit the commit hash.
+Now update the version in `${PYHAZE_NEW_REL}/meta.yaml`.
+
+Then find out the PyPI hash:
+
+```shell
+conda skeleton pypi pyhaze --version ${NEW_VERSION}
+```
+This created a new skeleton file at `brainload/meta.yaml`. Open the file in a text editor and copy the file hash of the pypi release from there (see the `sha256` line).
+
+Now update the commit hash in `${PYHAZE_NEW_REL}/meta.yaml`.
+
+It's time to build the conda package from the recipe:
+
+```shell
+conda-build ${NEW_RELEASE}
+```
+
