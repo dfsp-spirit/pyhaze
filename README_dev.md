@@ -116,7 +116,15 @@ Change into `<repo_dir>`. Then:
 
 See the information in [dev/building/] for more information.
 
-## Documentation
+## Current major issues
+
+All of these could be solved by having the current package as a 'private' (technically not possible, but it should just not be used by people directly) package on pypi/conda,
+and publishing a second one, with this one as a dependency, that would provide the intended user interface. This seems bad for the following reasons though:
+
+* it may confuse users to see both packages on conda/pypi (could be solved by giving the 'private' one a completely different name)
+* it makes both development and distribution even more annoying that the latter already is, because we have to manage 4 packages (2 on PyPI, 2 on conda) then, and update 4 packages for every new release.
+
+### Documentation
 
 Auto-generating the Python documentation is still an open issue. I cannot find any documentation or working
 example of how to achieve that for a pybind11 package.
@@ -130,10 +138,12 @@ type names, etc). Then it could generate the sphinx docs based on the C++ doc st
 Given that the `pyhaze` package only exposes three functions, this is of minor concern to me right now. We simply document the API in the `README.md` file for now. I would not use pybind11 for a larger project until I find some way to get this to work though.
 
 
-## Other issues
-
+### Adding pure Python functions
 (Apart from the documentation.)
 
 
-* It is not clear how to add a function written in Python to the package. This could be some simply helper function, or a function working on a more complex datastructure that you have in Python, but that does trivial stuff and therefore it is not worth it to annotate and import the large datastructure into C++, do something trivial, and pass it back. Currently the package can only include C++ functions wrapped with pybind11. Various solutions found in older StackOverflow posts also did not work, or it was unclear how to distribute them to users. Overall, it seems to me that pybind11 could use better documentation with regards to packaging the results. How to use it to wrap C++ functions is explained very well, but finding out how to ship your code to users is quite tedious.
-* Adding a console script entrypoint for the package needs to be investigated. As this would be written in Python, the problem is related to the previous one.
+It is not clear how to add a function written in Python to the package. This could be some simply helper function, or a function working on a more complex datastructure that you have in Python, but that does trivial stuff and therefore it is not worth it to annotate and import the large datastructure into C++, do something trivial, and pass it back. Currently the package can only include C++ functions wrapped with pybind11. Various solutions found in older StackOverflow posts also did not work, or it was unclear how to distribute them to users. Overall, it seems to me that pybind11 could use better documentation with regards to packaging the results. How to use it to wrap C++ functions is explained very well, but finding out how to ship your code to users is quite tedious.
+
+### Entrypoints / command line interface
+
+Adding a console script entrypoint for the package as a command line interface to pyhaze needs to be investigated. As this would be written in Python, the problem is related to the previous one.
