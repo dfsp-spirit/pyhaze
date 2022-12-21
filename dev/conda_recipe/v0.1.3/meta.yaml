@@ -15,6 +15,18 @@ build:
   script: "{{ PYTHON }} -m pip install . -vv"
   #script: "{{ PYTHON }} setup.py build sdist bdist_wheel"
 
+test:
+  imports:
+  files:
+    - python/tests/test_pyhaze.py
+  source_files:
+    - python/tests/*.py
+  requires:
+    - pytest
+  commands:
+    - pytest
+
+
 requirements:
   build:
     - python
