@@ -114,7 +114,7 @@ Change into `<repo_dir>`. Then:
 
 ## Building and publishing to PyPI and conda
 
-See the information in [dev/building/] for more information.
+See the information in [dev/building/] for more information. The conda instructions can be found in the Linux document only.
 
 ## Current major issues
 
