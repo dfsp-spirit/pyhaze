@@ -114,7 +114,7 @@ Change into `<repo_dir>`. Then:
 
 ## Building and publishing to PyPI and conda
 
-See the information in [dev/building/] for more information. The conda instructions can be found in the Linux document only.
+See the information in [dev/building/] for more information. The conda instructions can be found in the [Linux document](./dev/building/linux/pyhaze_build_linux.md) only.
 
 ## Current major issues
 
