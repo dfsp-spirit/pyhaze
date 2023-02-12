@@ -73,4 +73,4 @@ See the [unit tests](./python/tests/test_pyhaze.py) for more examples.
 
 ## Author
 
-pyhaze was written by Tim Schäfer[https://ts.rcmd.org]
+pyhaze was written by [Tim Schäfer](https://ts.rcmd.org)
