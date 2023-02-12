@@ -70,3 +70,7 @@ res = pyhaze.smooth_pvd_adj(mesh_adj, pvd_data.tolist(), num_iter=5)
 ```
 
 See the [unit tests](./python/tests/test_pyhaze.py) for more examples.
+
+## Author
+
+pyhaze was written by Tim Schäfer[https://ts.rcmd.org]
