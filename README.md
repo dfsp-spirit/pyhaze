@@ -11,7 +11,7 @@ This package package performs smoothing of per-vertex data on [triangular meshes
 
 ![Figure 1, Showing a brain mesh with an overlay, before and after smoothing.](./web/pyhaze.png?raw=true "Per-vertex data on a brain mesh before (left) and after (right) smoothing.")
 
-**Fig.1**: *Noisy per-vertex data on a brain mesh (left), and the same data after smoothing (right). White represents NA values.*
+**Fig.1**: *Noisy per-vertex data on a brain mesh (left), and the same data after smoothing (right). White represents NA values. The data, mapped to the colors of the viridis colormap in the visualization above, represents the vertex-wise mean curvature of the mesh in this example, but it could be anything one can map to a mesh, one value per vertex.*
 
 This is a Python implementation of the [haze package for R](https://github.com/dfsp-spirit/haze). The haze website offers a more detailed explanation of the motivation and use cases.
 
